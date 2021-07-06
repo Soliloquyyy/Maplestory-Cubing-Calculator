@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
                 ulong iterations = 0;
                 while(!finished)
                 {
-                    List<string> matchLines = new List<string>();
+                    Dictionary<string,int> matchLines = new Dictionary<string, int>();
                     List<string> temp = new List<string>(desiredLines);
                     List<int> match = new List<int>();
                     for (int j = 0; j < 3; ++j)
@@ -44,17 +44,42 @@ namespace WindowsFormsApp1
                         match.Add(this.simulateProbabilityR(j));
                         int[] lineArr = lines.getAvailLines(j);
                         int lineIndex = lineArr[match[j]];
-                        matchLines.Add(this.item.getLines()[lineIndex]);
+                        string[] availLines = this.item.getLines();
+
+
+                        if (matchLines.ContainsKey(availLines[lineIndex]))
+                        {
+                            matchLines[availLines[lineIndex]]++;
+                        }
+                        else
+                        {
+                            matchLines.Add(availLines[lineIndex], 1);
+                        }
                     }
 
                     int fillCount = 0;
                     while(temp.Count > 0)
                     {
-                        int retIndex = matchLines.IndexOf(temp.First());
-                        if (retIndex != -1)
+                        string firstStr = temp.First();
+                        if (matchLines.ContainsKey(firstStr))
                         {
-                            matchLines.RemoveAt(retIndex);
+                            matchLines[firstStr]--;
+                            if(matchLines[firstStr] == 0)
+                            {
+                                matchLines.Remove(firstStr);
+                            }
                         }
+                        else
+                        {
+                            matchLines.Remove(firstStr);
+                        }
+                        //int retIndex = matchLines.IndexOf(temp.First());
+                        //if (retIndex != -1)
+                        //{
+                        //    matchLines.RemoveAt(retIndex);
+                        //}
+
+
                         if(temp.First() == "FILL")
                         {
                             ++fillCount;
