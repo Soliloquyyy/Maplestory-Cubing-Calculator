@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -79,13 +80,6 @@ namespace WindowsFormsApp1
                             }
                         }
 
-                        //int retIndex = matchLines.IndexOf(temp.First());
-                        //if (retIndex != -1)
-                        //{
-                        //    matchLines.RemoveAt(retIndex);
-                        //}
-
-
                         if(temp.First() == "FILL")
                         {
                             ++fillCount;
@@ -100,13 +94,15 @@ namespace WindowsFormsApp1
                 }
 
                 checked{
-                    totalCost += (iterations * RedCubeCost);
+                    totalCost += (iterations);
                 }
 
                 progressBar.PerformStep();          
             }
-            return totalCost/trials;
+            return totalCost * RedCubeCost / trials;
         }
+
+
 
         private int simulateProbabilityR(int dictIndex)
         {
@@ -118,7 +114,7 @@ namespace WindowsFormsApp1
             int selectedIndex = -1;
             for (int i = 0; i < probabilityArr.Length; ++i)
             {
-                if (prob <= probabilityArr[i])
+                if (prob < probabilityArr[i])
                 {
                     selectedIndex = i;
                     break;

@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
 
         private readonly int[] Secondary1 =
         {
-            12,13,14,15,16,17,18,19,20,21,22,23,24,25
+            11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
         };
 
         private readonly int[] Secondary2 =
@@ -59,6 +59,10 @@ namespace WindowsFormsApp1
             0.510636,
             0.574466,
             0.617019,
+            0.659572,
+            0.702125,
+            0.744678,
+            0.787231,
             1.000000
         };
 

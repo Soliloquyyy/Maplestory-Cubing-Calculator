@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
 
         private readonly int[] Weapon1 =
         {
-            12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25
         };
 
         private readonly int[] Weapon2 =
@@ -60,6 +60,10 @@ namespace WindowsFormsApp1
             0.585364,
             0.658535,
             0.707315,
+            0.756095,
+            0.804875,
+            0.853655,
+            0.902435,
             1.000000
         };
 
