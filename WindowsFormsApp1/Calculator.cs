@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -13,6 +14,9 @@ namespace WindowsFormsApp1
         public Lines lines { get; set; }
         public Item item { get; set; }
 
+        public uint trials { get; set; }
+
+        public ProgressBar progressBar { get; set; }
         public int[] desiredIndexArr { get; set; }
 
         private readonly ulong RedCubeCost = 12000000;
@@ -29,13 +33,18 @@ namespace WindowsFormsApp1
             }
 
             ulong totalCost = 0;
-            uint count = 1000;
-            for(int i = 0; i < count; ++i)
+
+            progressBar.Minimum = 1;
+            progressBar.Maximum = (int) trials;
+            progressBar.Value = 1;
+            progressBar.Step = 1;
+
+            for(int i = 0; i < trials; ++i)
             {                
                 bool finished = false;
                 ulong iterations = 0;
                 while(!finished)
-                {
+                { 
                     Dictionary<string,int> matchLines = new Dictionary<string, int>();
                     List<string> temp = new List<string>(desiredLines);
                     List<int> match = new List<int>();
@@ -89,12 +98,14 @@ namespace WindowsFormsApp1
                     if (matchLines.Count - fillCount == 0) finished = true;
                     ++iterations;
                 }
+
                 checked{
                     totalCost += (iterations * RedCubeCost);
                 }
-                
+
+                progressBar.PerformStep();          
             }
-            return totalCost/count ;
+            return totalCost/trials;
         }
 
         private int simulateProbabilityR(int dictIndex)

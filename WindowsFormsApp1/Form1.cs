@@ -44,7 +44,9 @@ namespace WindowsFormsApp1
         private bool setLine2 = false;
         private bool setLine3 = false;
 
-        private int[] desiredIndexArr = new int[3]; 
+        private int[] desiredIndexArr = new int[3];
+
+        private uint trials = 100;
 
 
         //Function initComboBoxes
@@ -67,6 +69,8 @@ namespace WindowsFormsApp1
             calc.desiredIndexArr = desiredIndexArr;
             calc.lines = CurrentLine;
             calc.item = CurrentItem;
+            calc.trials = trials;
+            calc.progressBar = progressBar1;
             ulong result = calc.Simulate();
             Console.WriteLine(result);
             System.Windows.Forms.MessageBox.Show(String.Format("{0:n0}", result));
@@ -182,5 +186,18 @@ namespace WindowsFormsApp1
                 MessageBox.Show(msg, title);
             }
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            //Round Decimal places
+            if (numericUpDown1.DecimalPlaces > 0)
+            {
+                numericUpDown1.DecimalPlaces = 0;
+                numericUpDown1.Value = Decimal.Round(numericUpDown1.Value, 0);
+            }
+
+            trials = (uint) numericUpDown1.Value;
+        }
+
     }
 }
