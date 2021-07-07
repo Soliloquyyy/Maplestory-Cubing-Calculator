@@ -67,8 +67,9 @@ namespace WindowsFormsApp1
             calc.desiredIndexArr = desiredIndexArr;
             calc.lines = CurrentLine;
             calc.item = CurrentItem;
-            double result = calc.Simulate();
-            System.Windows.Forms.MessageBox.Show(result.ToString());
+            ulong result = calc.Simulate();
+            Console.WriteLine(result);
+            System.Windows.Forms.MessageBox.Show(String.Format("{0:n0}", result));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

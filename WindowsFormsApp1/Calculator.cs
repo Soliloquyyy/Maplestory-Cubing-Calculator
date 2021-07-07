@@ -16,8 +16,8 @@ namespace WindowsFormsApp1
         public int[] desiredIndexArr { get; set; }
 
         private readonly ulong RedCubeCost = 12000000;
-
-        public double Simulate()
+        private Random random = new Random();
+        public ulong Simulate()
         {
             List<string> desiredLines = new List<string>();
             for (int i = 0; i < 3; ++i)
@@ -61,7 +61,7 @@ namespace WindowsFormsApp1
                     while(temp.Count > 0)
                     {
                         string firstStr = temp.First();
-                        if (matchLines.ContainsKey(firstStr))
+                        if (matchLines.ContainsKey(firstStr) && firstStr != "FILL")
                         {
                             matchLines[firstStr]--;
                             if(matchLines[firstStr] == 0)
@@ -69,10 +69,7 @@ namespace WindowsFormsApp1
                                 matchLines.Remove(firstStr);
                             }
                         }
-                        else
-                        {
-                            matchLines.Remove(firstStr);
-                        }
+
                         //int retIndex = matchLines.IndexOf(temp.First());
                         //if (retIndex != -1)
                         //{
@@ -92,17 +89,17 @@ namespace WindowsFormsApp1
                     if (matchLines.Count - fillCount == 0) finished = true;
                     ++iterations;
                 }
-
-                totalCost += (iterations * RedCubeCost);
+                checked{
+                    totalCost += (iterations * RedCubeCost);
+                }
+                
             }
-            return totalCost/count;
+            return totalCost/count ;
         }
-
-
 
         private int simulateProbabilityR(int dictIndex)
         {
-            Random random = new Random();
+
             double prob = random.NextDouble();
 
             double[] probabilityArr = lines.getProbabilityR(dictIndex);
@@ -110,7 +107,7 @@ namespace WindowsFormsApp1
             int selectedIndex = -1;
             for (int i = 0; i < probabilityArr.Length; ++i)
             {
-                if(prob < probabilityArr[i])
+                if (prob <= probabilityArr[i])
                 {
                     selectedIndex = i;
                     break;

@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
 
         private readonly int[] Heart1 =
         {
-            7,8,9,10,11,12,13
+            7,8,9,10,11,12,13,14
         };
 
         private readonly int[] Heart2 =
