@@ -14,7 +14,6 @@ namespace WindowsFormsApp1
     {
         public Lines lines { get; set; }
         public Item item { get; set; }
-
         public uint trials { get; set; }
 
         public ProgressBar progressBar { get; set; }
